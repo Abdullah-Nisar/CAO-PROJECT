@@ -11,30 +11,31 @@
 AsyncWebServer server(80);
 
 // REPLACE WITH YOUR NETWORK CREDENTIALS
-const char* ssid = "REPLACE_WITH_YOUR_SSID";
-const char* password = "REPLACE_WITH_YOUR_PASSWORD";
+const char* ssid = "Error 404";
+const char* password = "Abdullah23";
 
 const char* PARAM_INPUT_1 = "input1";
 const char* PARAM_INPUT_2 = "input2";
-const char* PARAM_INPUT_3 = "input3";
 
 // HTML web page to handle 3 input fields (input1, input2, input3)
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE HTML><html><head>
   <title>ESP Input Form</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    label:
+    {
+      margin-right: 10px;
+    }
+  </style>
   </head><body>
-  <form action="/get">
-    input1: <input type="text" name="input1">
-    <input type="submit" value="Submit">
-  </form><br>
-  <form action="/get">
-    input2: <input type="text" name="input2">
-    <input type="submit" value="Submit">
-  </form><br>
-  <form action="/get">
-    input3: <input type="text" name="input3">
-    <input type="submit" value="Submit">
+  <form action=/get">
+  <label for="input1">Counter time for Switch 1: </label>
+  <input type="time" id="input1" name="input1"><br>
+  <input type="submit" value="Submit"><br><br>
+  <label for="input2">Counter time for Switch 2: </label>
+  <input type="time" id="input2" name="input2"><br>
+  <input type="submit" value="Submit"><br><br>
   </form>
 </body></html>)rawliteral";
 
@@ -74,18 +75,19 @@ void setup() {
       inputParam = PARAM_INPUT_2;
     }
     // GET input3 value on <ESP_IP>/get?input3=<inputMessage>
-    else if (request->hasParam(PARAM_INPUT_3)) {
-      inputMessage = request->getParam(PARAM_INPUT_3)->value();
-      inputParam = PARAM_INPUT_3;
-    }
+//    else if (request->hasParam(PARAM_INPUT_3)) {
+//      inputMessage = request->getParam(PARAM_INPUT_3)->value();
+//      inputParam = PARAM_INPUT_3;
+//    }
     else {
       inputMessage = "No message sent";
       inputParam = "none";
     }
     Serial.println(inputMessage);
-    request->send(200, "text/html", "HTTP GET request sent to your ESP on input field (" 
-                                     + inputParam + ") with value: " + inputMessage +
-                                     "<br><a href=\"/\">Return to Home Page</a>");
+    request->send(200, "text/html", index_html);
+//    request->send(200, "text/html", "HTTP GET request sent to your ESP on input field (" 
+//                                     + inputParam + ") with value: " + inputMessage +
+//                                     "<br><a href=\"/\">Return to Home Page</a>");
   });
   server.onNotFound(notFound);
   server.begin();
