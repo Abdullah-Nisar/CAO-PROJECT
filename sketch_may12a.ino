@@ -11,8 +11,8 @@
 AsyncWebServer server(80);
 
 // REPLACE WITH YOUR NETWORK CREDENTIALS
-const char* ssid = "REPLACE_WITH_YOUR_SSID";
-const char* password = "REPLACE_WITH_YOUR_PASSWORD";
+const char* ssid = "Error 404";
+const char* password = "Abdullah23";
 
 const char* PARAM_INPUT_1 = "input1";
 const char* PARAM_INPUT_2 = "input2";
